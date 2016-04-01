@@ -1,2 +1,2 @@
 # Problem-solutions
-Backup of my programming problem sollutions
+Backup of my programming problem solutions

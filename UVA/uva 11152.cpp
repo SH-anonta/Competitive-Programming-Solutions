@@ -1,5 +1,4 @@
-//#Name: Anonta Haque #Problm:  SUM IT SPOJ 
-//http://www.spoj.com/problems/SUMFOUR/
+//#Name: Anonta Haque #Problm:UVA 11152 - Colourful Flowers
 
 #include <algorithm>
 #include <iostream>
@@ -51,31 +50,40 @@ const double PI= 2*acos(0.0);
 
 void solve(void)
 {
-    int T, n, sum, occ;
- 
-    read(T);
-    for(int tst= 1; tst<=T; tst++)
+    double a,b,c;
+
+    while(sf("%lf%lf%lf", &a, &b, &c) == 3)
     {
-        sum = 0;
-        sf("%d", &n);
+
+        double vioA= (a+b+c)/2;
+        double s= vioA;
         
-        occ= (1<<n)>>1;
+        double vioArea= sqrt(s*(s-a) * (s-b) * (s-c));
         
-        for(int i= 1; i<= n; i++){
-            sum += i* occ;
-        }
-        
-        pf("%d\n", sum);
+        double sunRad= (a*b*c)/(4*sqrt(s*(s-a) * (s-b) * (s-c)) );
+
+        double sunArea= PI*sunRad*sunRad;
+
+
+        double roseRad= sqrt(s*(s-a) * (s-b) * (s-c))/s;
+
+        double roseArea= PI*roseRad*roseRad;
+
+        sunArea -= vioArea;
+        vioArea -= roseArea;        
+                
+
+        pf("%.4f %.4f %.4f\n", sunArea + EPS, vioArea+EPS, roseArea+EPS);                
+
     }
-    
 }
 
 
 
 int main(void)
 {
-    solve();       
-    
+    solve();
+
     
     return 0;
 }

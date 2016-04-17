@@ -1,4 +1,4 @@
-//#Name: Anonta Haque #Problm:  
+//#Name: Anonta Haque #Problm: Code forces 616A - Comparing Two Long Integers 
 #include <algorithm>
 #include <iostream>
 #include <fstream>
@@ -40,50 +40,73 @@ short CC_;
 #define EXT(st_) cout<<"\n>>>Exicution Time: "<<(double)(clock()-st_)/CLOCKS_PER_SEC<<endl;
 
 //constants
-const int SZ= (1E4)+10;
+const int SZ= 1E6;
 const int INF= (1<<29);
 const double EPS= 1E-9;
 const double PI= 2*acos(0.0);
 
-
-char str[SZ];
+char n1[SZ+10];
+char n2[SZ+10];
 
 void solve(void)
 {
-    int T, len, cut;
- 
-    read(T);
-    getchar();
+    int trim1= 0,trim2= 0;
     
-    for(int tst= 1; tst<=T; tst++)
-    {
-        gets(str);
-        
-        
-        len= strlen(str);
-        cut= sqrt(len);
-                       
-        if(cut*cut != len)
-        {
-            pf("INVALID\n");
-            continue;
-        }
-        
-        for(int i= 0, jump= cut; i<cut; i++)
-        {
-            for(int j= 0; j<len; j+= jump)
-            {
-                pf("%c", str[i+j]);
-            }
-        }
-        NL
+    sf("%s%s", n1,n2);
+    
+    while(n1[trim1++] == '0');
+    trim1--;
+    
+    while(n2[trim2++] == '0');
+    trim2--;
+ 
+    int len1= strlen(n1+trim1);
+    int len2= strlen(n2+trim2);
+    
+    
+    if(len1 == 0 && len2 == 0){
+        pf("=\n");
+        return;
     }
     
+            
+        
+    if(len1 > len2)
+        pf(">\n");
+    else if(len1 < len2)
+        pf("<\n");
+    else
+    {
+        for(int i= 0; i<len1; i++)
+        {
+//            DD(n1[trim1+i])
+//            DD(n2[trim2+i])
+            if(n1[trim1+i] > n2[trim2+i]){
+                pf(">\n");
+                break;
+            }
+            else if(n1[trim1+i] < n2[trim2+i]){
+                pf("<\n");
+                break;
+            }
+            
+            if(i == len1-1)
+                pf("=\n");
+        }
+        
+        
+        
+    }
 }
+
+
 
 int main(void)
 {
     solve();
-    
     return 0;
+    
 }
+
+
+

@@ -65,18 +65,16 @@ void solve(void)
         }
         digits.clear();
         for(int i= 1; i; i++){
-            stringstream nstr;
-            nstr<< i*n;
-//            DD(i*n)
-            char dig;
-            while(nstr>>dig){
-                digits[dig-'0']= true;
-                if(digits.size() == 10){
+            LL temp= i*n;
+            while(temp){
+                digits[temp%10]= true;
+                
+                if(digits.size()== 10){
+                    last = i*n;
                     found= true;
-//                    last= dig-'0';
-                    last= i*n;
                     break;
                 }
+                temp/= 10;
             }
             
             if(found) break;

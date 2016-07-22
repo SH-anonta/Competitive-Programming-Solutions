@@ -1,78 +1,31 @@
-//#Name: Anonta Haque #Problm:
-#include <algorithm>
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <cstring>
-#include <cstdlib>
-#include <cstdarg>
-#include <utility>
-#include <bitset>
-#include <cctype>
-#include <cstdio>
-#include <vector>
-#include <string>
+#include <map>
+#include <set>
+#include <list>
 #include <cmath>
 #include <ctime>
-#include <queue>
 #include <deque>
+#include <queue>
 #include <stack>
-#include <set>
-#include <map>
-
+#include <bitset>
+#include <cstdio>
+#include <limits>
+#include <vector>
+#include <cstdlib>
+#include <numeric>
+#include <sstream>
+#include <iostream>
+#include <algorithm>
 using namespace std;
 
-typedef long long LL;
-typedef vector<int> vint;
-typedef pair<int,int> pint;
-typedef unsigned long long ULL;
-
-short CC_;
-#define sf scanf
-#define pf printf
-#define NL pf("\n");
-#define PP getchar();
-#define SS printf(">_<LOOOOOK@MEEEEEEEEEEEEEEE<<( %d )>>\n",++CC_);
-#define DD(x_) cout<<">>>>( "<<++CC_<<" ) "<<#x_<<": "<<x_<<endl;
-#define EXT(st_) cout<<"\n>>>Exicution Time: "<<(double)(clock()-st_)/CLOCKS_PER_SEC<<endl;
-
-//constants
-const int SZ= 1E6;
-const int INF= (1<<29);
-const double EPS= 1E-9;
-const double PI= 2*acos(0.0);
-
-void solve(void){
-    int Tc;
-    int n;
-    
+int main() {
+    int n, temp, lonely= 0;
     cin>>n;
-    map<int, int> occ;
     
-    int temp, lonely;
     while(n--){
         cin>>temp;
-        occ[temp]++;
+        lonely ^= temp;
     }
     
-    for(pair<int, int> i : occ){
-        if(i.second == 1){
-            cout<< i.first <<endl;
-            break;
-        }
-    }
-    
-    
-}
-
-
-
-int main(void){
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-
-    solve();
-
-    
+    cout<< lonely <<endl;
     return 0;
 }

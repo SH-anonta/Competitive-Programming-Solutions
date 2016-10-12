@@ -66,92 +66,106 @@ template <class T>inline T LCM(T x,T y){return((x*y)/__gcd(x,y));}
 LL todec(string& num, int b){LL dec=num[0]-(isupper(num[0])? 'A'-10: '0');for(int i=1;num[i];i++){if(num[i]>='A'&& num[i]<='Z')num[i]-='A'-10;else num[i]-='0';dec*= b;dec+= num[i];}return dec;}
 int bigMod(int b,int e,int m){if(e==0)return 1;if(!e&1){int temp=bigMod(b,e/2,m)%m;return(temp*temp)%m;}else return((b%m)*(bigMod(b,e-1,m))%m)%m;}
 inline LL POW(LL base, int exp){LL p= 1; while(exp-->0){p *= base;} return p;}
-bool ispal(const string& str){int len= str.length();for(int i= 0; i<len/2; i++){if(str[i]==str[len-i-1]){}else return false;}return true;}
 bool comp(const int a,const int b){return a>b;}
 }
 
-int g[100000][3];
-LL cache[100000][3];
-int N;
+bool stat[10004];
+int primes[10004];
+int primesC= 0;
 
-int xd, yd;
-
-LL mn(int r, int c){
-
-    if(r< 0 || c < 0 || r >= N  || c > 2) return INF;
-
-    if(r == xd && c == yd){
-        return cache[r][c] = g[r][c];
+void sieve(){
+    int sqrtn= sqrt(10000);
+    
+    for(int i= 3; i<=sqrtn; i+= 2){
+        if(i == 1) continue;
+        for(int j= i*i; j<=10000; j+= i<<1){
+            stat[j]= 1;
+        }
+        
     }
-
-    if(cache[r][c] != -1){
-//            DD(r<<" " << c)
-//
-//            DD(cache[r][c])
-            return cache[r][c];
+    
+    primes[0]= 2;
+    
+    for(int i= 3, j= 1; i<=10000; i+= 2){
+        if(stat[i]==0){
+            primes[j]= i;
+            j++;
+            primesC++;
+        }
     }
+    
+}
 
-    LL a, b,cc,d, temp;
-
-    a= mn(r+1, c-1);
-    b= mn(r+1, c+1);
-    cc= mn(r+1, c);
-    d= mn(r, c+1);
-
-    return cache[r][c] = g[r][c] + min( min(a,b), min(cc,d) );
-
-
+bool isprime(int n){
+    return binary_search(primes, primes+primesC, n);
 }
 
 void solve(void){
     int Tc;
-    int n;
-
-    int ttt= 1;
-    while(cin>>n && n != 0){
-    memset(cache, -1, sizeof(cache));
-    N= n;
-    xd= N-1;
-    yd= 1;
-
-
-    for(int i=0; i<n; i++){
-        for(int j= 0; j<3; j++){
-            cin>>g[i][j];
+    int n, a,b, fac,c;
+    int ary[10000];
+    
+    cin>>Tc;
+    cin.ignore();
+    bool non;
+    for(int Case= 1; Case<=Tc; Case++)
+    {
+        c=0;
+        non = true;
+        fac= 2;
+        
+        cin>>a>>b;
+        if(a>b)swap(a,b);
+        for(int i= a; i<=b; i++){
+            fac= 2;
+            if(i < 2) continue;
+            for(int j= 2; j<=i/2; j++){
+                if(i % j == 0){
+                    fac++;
+                }
+            }
+            
+//            DD(fac)
+            if(isprime(fac)){
+                non= false;
+//                if(i != b || b-a == 1)cout<< i <<" .";
+                ary[c]= i;
+                c++;
+            }
+            
+        }
+        
+        if(non)cout<< -1 <<endl;
+        else{
+            cout<< ary[0];
+            for(int i= 1; i<c; i++){
+                cout<< " "<< ary[i];
+            }
+            cout<<endl;
         }
     }
-    int temp;
-//    cin>>temp;
 
-
-    cout<< ttt<<". "<< mn(0, 1) <<endl;
-
-    ttt++;
-    }
 }
 
 
-/*INPUTS!!!
+/*FILL ME WITH INPUTS!!!
 
-4
-10 12 1
-3 100 5
-2 4 20
-1 50 2
 
-2
-0 1 0
-0 1 0
 */
 
 
 int main(void){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
+    
+    sieve();
     solve();
-
-
-
+    
+//    DA(primes, primesC);
+//    while(1){
+//        int a;
+//        cin>>a;
+//    cout<< isprime(a)<<endl;
+//    }
     return 0;
 }

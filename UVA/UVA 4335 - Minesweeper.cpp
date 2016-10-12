@@ -66,82 +66,78 @@ template <class T>inline T LCM(T x,T y){return((x*y)/__gcd(x,y));}
 LL todec(string& num, int b){LL dec=num[0]-(isupper(num[0])? 'A'-10: '0');for(int i=1;num[i];i++){if(num[i]>='A'&& num[i]<='Z')num[i]-='A'-10;else num[i]-='0';dec*= b;dec+= num[i];}return dec;}
 int bigMod(int b,int e,int m){if(e==0)return 1;if(!e&1){int temp=bigMod(b,e/2,m)%m;return(temp*temp)%m;}else return((b%m)*(bigMod(b,e-1,m))%m)%m;}
 inline LL POW(LL base, int exp){LL p= 1; while(exp-->0){p *= base;} return p;}
-bool ispal(const string& str){int len= str.length();for(int i= 0; i<len/2; i++){if(str[i]==str[len-i-1]){}else return false;}return true;}
 bool comp(const int a,const int b){return a>b;}
 }
 
-int g[100000][3];
-LL cache[100000][3];
-int N;
 
-int xd, yd;
+char mine[21][21];
+int N,M;
+int xm[9]= {1, 0, 1, -1,  0, -1,  1, -1};
+int ym[9]= {0, 1, 1, -1, -1,  0, -1,  1};
 
-LL mn(int r, int c){
-
-    if(r< 0 || c < 0 || r >= N  || c > 2) return INF;
-
-    if(r == xd && c == yd){
-        return cache[r][c] = g[r][c];
+int mcount(int r, int c, int n){
+    if(r < 0 || c< 0 || r>= N || c >= M) return 0;
+    if(mine[r][c] == 'F') return 1;
+    if(n == 0) return 0;
+    int sum= 0;
+    for(int i= 0; i<8; i++){
+        sum+= mcount(r+xm[i], c+ym[i], 0);
     }
-
-    if(cache[r][c] != -1){
-//            DD(r<<" " << c)
-//
-//            DD(cache[r][c])
-            return cache[r][c];
-    }
-
-    LL a, b,cc,d, temp;
-
-    a= mn(r+1, c-1);
-    b= mn(r+1, c+1);
-    cc= mn(r+1, c);
-    d= mn(r, c+1);
-
-    return cache[r][c] = g[r][c] + min( min(a,b), min(cc,d) );
-
-
+    
+    return sum;
 }
 
 void solve(void){
     int Tc;
-    int n;
-
-    int ttt= 1;
-    while(cin>>n && n != 0){
-    memset(cache, -1, sizeof(cache));
-    N= n;
-    xd= N-1;
-    yd= 1;
-
-
-    for(int i=0; i<n; i++){
-        for(int j= 0; j<3; j++){
-            cin>>g[i][j];
+    int n, m;
+    
+    cin>>Tc;
+    cin.ignore();
+    
+    bool corr, ffonly;
+    for(int Case= 1; Case<=Tc; Case++)
+    {
+        ffonly= true;
+        corr= true;
+        cin>>n>>m;
+        N = n;
+        M= m;
+        for(int i= 0; i<n; i++){
+            for(int j= 0; j<n; j++){
+                cin>>mine[i][j];
+            }
         }
+        
+        for(int i= 0; i<n; i++){
+            for(int j= 0; j<n; j++){
+                if(mine[i][j] != 'F'){
+                    ffonly= false;
+                    if(mine[i][j] - '0' != mcount(i, j, 1)){
+                        corr= false;
+                        break;
+                    }
+                }
+            }
+            if(corr == false) break;
+        }
+        
+        cout<< ((corr && ffonly!=true)? "Well done Clark!" : "Please sweep the mine again!") <<endl;
+        
+//        cout<< mcount(0, 1,1) <<endl;
+//        cout<< mcount(6, 7,1) <<endl;
     }
-    int temp;
-//    cin>>temp;
 
-
-    cout<< ttt<<". "<< mn(0, 1) <<endl;
-
-    ttt++;
-    }
 }
 
 
-/*INPUTS!!!
+/*FILL ME WITH INPUTS!!!
 
-4
-10 12 1
-3 100 5
-2 4 20
-1 50 2
-
-2
-0 1 0
-0 1 0
+1 1
+1
+ * 
+2 2
+F1
+11
 */
 
 
@@ -150,8 +146,8 @@ int main(void){
     cin.tie(NULL);
 
     solve();
+   
 
-
-
+    
     return 0;
 }

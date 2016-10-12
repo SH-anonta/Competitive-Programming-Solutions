@@ -70,78 +70,32 @@ bool ispal(const string& str){int len= str.length();for(int i= 0; i<len/2; i++){
 bool comp(const int a,const int b){return a>b;}
 }
 
-int g[100000][3];
-LL cache[100000][3];
-int N;
-
-int xd, yd;
-
-LL mn(int r, int c){
-
-    if(r< 0 || c < 0 || r >= N  || c > 2) return INF;
-
-    if(r == xd && c == yd){
-        return cache[r][c] = g[r][c];
-    }
-
-    if(cache[r][c] != -1){
-//            DD(r<<" " << c)
-//
-//            DD(cache[r][c])
-            return cache[r][c];
-    }
-
-    LL a, b,cc,d, temp;
-
-    a= mn(r+1, c-1);
-    b= mn(r+1, c+1);
-    cc= mn(r+1, c);
-    d= mn(r, c+1);
-
-    return cache[r][c] = g[r][c] + min( min(a,b), min(cc,d) );
-
-
-}
-
 void solve(void){
-    int Tc;
-    int n;
-
-    int ttt= 1;
-    while(cin>>n && n != 0){
-    memset(cache, -1, sizeof(cache));
-    N= n;
-    xd= N-1;
-    yd= 1;
-
-
-    for(int i=0; i<n; i++){
-        for(int j= 0; j<3; j++){
-            cin>>g[i][j];
+    int n, a[102];
+    
+    cin>>n;
+    sary(a, a+n);
+    
+    static int o, e, ee, oo;
+    
+    for(int i= 0; i<n; i++){
+        if(a[i]&1) {
+            o++;
+            oo= i+1;
+        }
+        else{
+            e++;
+            ee= i+1;
         }
     }
-    int temp;
-//    cin>>temp;
 
-
-    cout<< ttt<<". "<< mn(0, 1) <<endl;
-
-    ttt++;
-    }
+    cout<< ((e<o)? ee : oo)<<endl;
 }
 
 
-/*INPUTS!!!
+/*FILL ME WITH INPUTS!!!
 
-4
-10 12 1
-3 100 5
-2 4 20
-1 50 2
 
-2
-0 1 0
-0 1 0
 */
 
 
@@ -150,8 +104,8 @@ int main(void){
     cin.tie(NULL);
 
     solve();
+   
 
-
-
+    
     return 0;
 }

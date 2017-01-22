@@ -4,22 +4,23 @@ using namespace std;
 
 int main(void)
 {
-    int n,k, butt, cigs;
+    long long n, k,c, but;
     
-    while(cin>>n>>k)
-    {
-        cigs= n;
-        while(n >= k){
-            butt = n%k;
+    while(cin>>n>>k){
+        c= 0;
+        while(1){
+            c+= n- n%k;
             
-            n /= k;
-            cigs += n;
+            n= (n/k) + (n%k);
             
-            n += butt;
+            if(n < k){
+                c+= n;
+                break;
+            }
+//            cout<< c <<endl;
         }
         
-        cout<< cigs <<endl;
+        cout<< c <<endl;
     }
-    
     return 0;
 }

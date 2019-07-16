@@ -47,17 +47,17 @@ void name(void)
     for(int tst= 1; tst<=T; tst++)
     {
         int maxX= -INF, maxY= -INF, minX= INF, minY= INF;
-        sf("%d", &n);
+        sf("%d\n", &n);
         while(n--){
 //            SIG
             getchar();
             scanf("%c", &obj);
             
             if(obj == 'p'){
-                    scanf("%d %d", &x, &y);
+                    scanf("%d %d\n", &x, &y);
                 }
             else if(obj == 'c'){
-                    scanf("%d %d %d", &x, &y, &r);
+                    scanf("%d %d %d\n", &x, &y, &r);
                     xd = x -r;
                     yd = y -r;
                     
@@ -72,7 +72,7 @@ void name(void)
                 }
             else if(obj == 'l')
                 {
-                    scanf("%d %d %d %d", &x, &y, &xd, &yd);
+                    scanf("%d %d %d %d\n", &x, &y, &xd, &yd);
                     maxX= max(xd, maxX);
                     minX= min(xd, minX);
                     
